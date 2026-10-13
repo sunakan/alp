@@ -227,12 +227,12 @@ func setOriginalTime(request *httpv1.Request, value string) {
 
 func normalizeURL(src *url.URL, queryString, qsIgnoreValues bool) *url.URL {
 	u := *src
-	if src.RawQuery == "" {
-		return &u
-	}
-
 	if !queryString {
 		u.RawQuery = ""
+		u.ForceQuery = false
+		return &u
+	}
+	if u.RawQuery == "" {
 		return &u
 	}
 
